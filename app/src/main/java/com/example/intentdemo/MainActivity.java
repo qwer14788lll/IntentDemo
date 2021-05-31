@@ -22,15 +22,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(mBinding.getRoot());
 
         mBinding.ButtonToMain.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this,HelloActivity.class);
+            Intent intent = new Intent(MainActivity.this, HelloActivity.class);
             startActivity(intent);
         });
 
         mBinding.ButtonToBaidu.setOnClickListener(v -> {
             //设置意图
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            //将网址URI地址对象设置到意图上
+            //将字符串地址转化为网址URI地址对象，设置到意图上
             intent.setData(Uri.parse("https://www.baidu.com/"));
+            startActivity(intent);
+        });
+
+        mBinding.ButtonToBing.setOnClickListener(v -> {
+            //设置意图
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            String s = mBinding.editKey.getText().toString();
+            //将字符串地址转化为网址URI地址对象，设置到意图上
+            intent.setData(Uri.parse("https://cn.bing.com/search?q=" + s));
             startActivity(intent);
         });
     }
