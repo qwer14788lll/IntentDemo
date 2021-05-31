@@ -1,10 +1,15 @@
 package com.example.intentdemo;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.intentdemo.databinding.ActivityMainBinding;
 
@@ -14,6 +19,7 @@ import com.example.intentdemo.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding mBinding;
+    public static int CALL_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,5 +48,51 @@ public class MainActivity extends AppCompatActivity {
             intent.setData(Uri.parse("https://cn.bing.com/search?q=" + s));
             startActivity(intent);
         });
+
+        mBinding.ButtonToPhone.setOnClickListener(v -> {
+            //拨打电话的权限
+            String callPermission = Manifest.permission.CALL_PHONE;
+            //检查是否有拨打电话的权限,如果为true（申请权限），否则（直接拨打）
+            //已授权（常量为0），未授权（常量为-1）
+            if (ActivityCompat.checkSelfPermission(this, callPermission) != PackageManager.PERMISSION_GRANTED) {
+                //请求授权（要申请权限的Activity，要申请的权限数组，请求代码）
+                ActivityCompat.requestPermissions(this, new String[]{callPermission}, CALL_CODE);
+            } else {
+                call(Intent.ACTION_CALL);
+            }
+        });
+    }
+
+    /**
+     * 打电话
+     * @param action Intent.ACTION_CALL直接拨打电话 或 Intent.ACTION_DIAL将电话号码带给电话应用
+     */
+    private void call(String action) {
+        Intent intent = new Intent();
+        intent.setAction(action);
+        intent.setData(Uri.parse("tel:17520439994"));
+        startActivity(intent);
+    }
+
+    /**
+     * 请求授权的回调方法，在用户作出选择后发生
+     *
+     * @param requestCode  请求代码
+     * @param permissions  权限数组
+     * @param grantResults 授权结果数组
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        //判断请求来源
+        if (requestCode == CALL_CODE) {
+            //判断是否有授权结果，并且授权结果是否为已授权
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                call(Intent.ACTION_CALL);
+            } else {
+                Toast.makeText(this, "未授予拨打电话的权限，请手动拨打", Toast.LENGTH_SHORT).show();
+                //Intent.ACTION_DIAL将电话号码带给电话应用
+                call(Intent.ACTION_DIAL);
+            }
+        }
     }
 }
