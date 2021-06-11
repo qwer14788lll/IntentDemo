@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.widget.Toast;
 
 import com.example.intentdemo.databinding.ActivityMainBinding;
@@ -68,6 +69,12 @@ public class MainActivity extends AppCompatActivity {
             intent.setData(Uri.parse("smsto:17520439994"));
             //设定短信的发送内容（我给他预设的）sms_body表达的就是短信的主体内容
             intent.putExtra("sms_body","年轻人发出的第一条短信");
+            startActivity(intent);
+        });
+
+        mBinding.ButtonToCamera.setOnClickListener(v -> {
+            //启动系统相机
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivity(intent);
         });
     }
