@@ -61,6 +61,15 @@ public class MainActivity extends AppCompatActivity {
                 call(Intent.ACTION_CALL);
             }
         });
+
+        mBinding.ButtonToSMS.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            //指定要收短信的电话号码
+            intent.setData(Uri.parse("smsto:17520439994"));
+            //设定短信的发送内容（我给他预设的）sms_body表达的就是短信的主体内容
+            intent.putExtra("sms_body","年轻人发出的第一条短信");
+            startActivity(intent);
+        });
     }
 
     /**
