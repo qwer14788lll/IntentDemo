@@ -11,7 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".HiActivity"></activity>
+        <activity android:name=".HiActivity">
+            <intent-filter>
+                <!-- 设置action属性，使其响应我们指定的动作 -->
+                <action android:name="com.my.test"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".HelloActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
