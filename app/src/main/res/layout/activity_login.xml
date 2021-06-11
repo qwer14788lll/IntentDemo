@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+    <EditText
+        android:id="@+id/user"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/test2"
+        android:ems="10"
+        android:hint="请输入账号"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/pwd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/pwd"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/test2"
+        android:ems="10"
+        android:hint="请输入密码"
+        android:inputType="numberPassword"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/isAdmin"
+        app:layout_constraintEnd_toEndOf="@+id/user"
+        app:layout_constraintStart_toStartOf="@+id/user"
+        app:layout_constraintTop_toBottomOf="@+id/user" />
+
+    <CheckBox
+        android:id="@+id/isAdmin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/test2"
+        android:padding="10dp"
+        android:text="是否以管理员身份登录"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="@+id/pwd"
+        app:layout_constraintStart_toStartOf="@+id/pwd"
+        app:layout_constraintTop_toBottomOf="@+id/pwd" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <Button
+        android:id="@+id/ButtonLogin1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/test1"
+        android:text="登录（普通方式）"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/ButtonLogin2"
+        app:layout_constraintEnd_toEndOf="@+id/ButtonLogin2"
+        app:layout_constraintStart_toStartOf="@+id/ButtonLogin2"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <Button
+        android:id="@+id/ButtonLogin2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/test1"
+        android:text="登录（封装数据方式）"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/ButtonLogin3"
+        app:layout_constraintEnd_toEndOf="@+id/ButtonLogin3"
+        app:layout_constraintStart_toStartOf="@+id/ButtonLogin3"
+        app:layout_constraintTop_toBottomOf="@+id/ButtonLogin1" />
+
+    <Button
+        android:id="@+id/ButtonLogin3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/test1"
+        android:text="登录（返回值方式）"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/ButtonLogin4"
+        app:layout_constraintEnd_toEndOf="@+id/ButtonLogin4"
+        app:layout_constraintStart_toStartOf="@+id/ButtonLogin4"
+        app:layout_constraintTop_toBottomOf="@+id/ButtonLogin2" />
+
+    <Button
+        android:id="@+id/ButtonLogin4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/test1"
+        android:text="登录（自定义方式）"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ButtonLogin3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
