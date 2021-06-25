@@ -2,6 +2,7 @@ package com.example.intentdemo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,6 +21,7 @@ public class HomeActivity extends AppCompatActivity {
     private static final String METHOD_2 = "封装";
     private static final String METHOD_3 = "返回值";
     public static final String EXIT_CODE_HOME = "exit_code_home";
+    private long exitTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,5 +51,28 @@ public class HomeActivity extends AppCompatActivity {
         mBinding.userText.setText(user);
         mBinding.pwdText.setText(pwd);
         mBinding.isAdminText.setText(isAdmin);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //拦截系统返回键的默认逻辑
+        exit();
+    }
+
+    /**
+     * 自定义的退出键逻辑
+     */
+    private void exit() {
+        long doubleTime = 1000;
+        //System.currentTimeMillis()获取的是现在这个时刻距离1970年1月1日0点0分0秒的时间差（毫秒数）
+        if (System.currentTimeMillis() - exitTime > doubleTime) {
+            exitTime = System.currentTimeMillis();
+            Toast.makeText(this, "快速点击两次退出键，可退出当前账号", Toast.LENGTH_SHORT).show();
+        } else {
+            //销毁当前的Activity
+            finish();
+            //退出整个App
+            //System.exit(0);
+        }
     }
 }
