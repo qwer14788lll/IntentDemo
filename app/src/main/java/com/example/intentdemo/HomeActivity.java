@@ -1,5 +1,6 @@
 package com.example.intentdemo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -44,6 +45,10 @@ public class HomeActivity extends AppCompatActivity {
             pwd = "密码：" + u.getPwd();
             isAdmin = "是否为管理员：" + u.getIsAdmin();
         } else if (METHOD_3.equals(method)) {
+            UserInfo u = (UserInfo) intent.getSerializableExtra("userinfo");
+            user = "账号：" + u.getUser();
+            pwd = "密码：" + u.getPwd();
+            isAdmin = "是否为管理员：" + u.getIsAdmin();
             intent.putExtra(EXIT_CODE_HOME, "您已退出账号");
             setResult(RESULT_OK, intent);
         }
@@ -74,5 +79,38 @@ public class HomeActivity extends AppCompatActivity {
             //退出整个App
             //System.exit(0);
         }
+    }
+
+    /**
+     * 启动Home界面的方法
+     *
+     * @param activity    来源
+     * @param data        要传递的数据
+     * @param requestCode 请求代码
+     */
+    public static void startHome(Activity activity, UserInfo data, int requestCode) {
+        Intent intent = new Intent(activity, HomeActivity.class);
+        Bundle bundle = new Bundle();
+        //需要使用Bundle对象来保存可序列化的实体类数据
+        bundle.putSerializable("userinfo", data);
+        intent.putExtras(bundle);
+        intent.putExtra("传递方式", "返回值");
+        activity.startActivityForResult(intent, requestCode);
+    }
+
+    /**
+     * 启动Home界面的方法
+     *
+     * @param activity 来源
+     * @param data     要传递的数据
+     */
+    public static void startHome(Activity activity, UserInfo data) {
+        Intent intent = new Intent(activity, HomeActivity.class);
+        Bundle bundle = new Bundle();
+        //需要使用Bundle对象来保存可序列化的实体类数据
+        bundle.putSerializable("userinfo", data);
+        intent.putExtras(bundle);
+        intent.putExtra("传递方式", "封装");
+        activity.startActivity(intent);
     }
 }

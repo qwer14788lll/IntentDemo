@@ -58,6 +58,14 @@ public class LoginActivity extends AppCompatActivity {
             //具有返回值的跳转，第二个参数是请求代码
             startActivityForResult(intent, REQUEST_CODE_LOGIN);
         });
+
+        mBinding.ButtonLogin4.setOnClickListener(v -> {
+            if (init()) {
+                UserInfo u = new UserInfo(user, pwd, isAdmin);
+                //HomeActivity.startHome(LoginActivity.this, u);
+                HomeActivity.startHome(LoginActivity.this, u,REQUEST_CODE_LOGIN);
+            }
+        });
     }
 
     /**
