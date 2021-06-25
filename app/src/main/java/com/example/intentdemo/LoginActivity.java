@@ -1,5 +1,6 @@
 package com.example.intentdemo;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,6 +8,8 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.intentdemo.databinding.ActivityLoginBinding;
+
+import java.util.Objects;
 
 /**
  * @author Surface Pro 6
@@ -17,6 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     private String user;
     private String pwd;
     private String isAdmin;
+    private static final int REQUEST_CODE_LOGIN = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +28,13 @@ public class LoginActivity extends AppCompatActivity {
         mBinding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
-        //普通的传值方法
         mBinding.ButtonLogin1.setOnClickListener(v -> {
             if (init()) {
                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 intent.putExtra("user", user);
                 intent.putExtra("pwd", pwd);
                 intent.putExtra("isAdmin", isAdmin);
-                intent.putExtra("传递方式","普通");
+                intent.putExtra("传递方式", "普通");
                 startActivity(intent);
             }
         });
@@ -44,10 +47,36 @@ public class LoginActivity extends AppCompatActivity {
                 bundle.putSerializable("userinfo", u);
                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 intent.putExtras(bundle);
-                intent.putExtra("传递方式","封装");
+                intent.putExtra("传递方式", "封装");
                 startActivity(intent);
             }
         });
+
+        mBinding.ButtonLogin3.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            intent.putExtra("传递方式", "返回值");
+            //具有返回值的跳转，第二个参数是请求代码
+            startActivityForResult(intent, REQUEST_CODE_LOGIN);
+        });
+    }
+
+    /**
+     * 处理返回数据的回调方法
+     *
+     * @param requestCode 请求代码
+     * @param resultCode  返回代码
+     * @param data        返回的数据
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //检查请求代码是否一致
+        if (requestCode == REQUEST_CODE_LOGIN) {
+            if (resultCode == RESULT_OK) {
+                String result = Objects.requireNonNull(data).getStringExtra(HomeActivity.EXIT_CODE_HOME);
+                Toast.makeText(LoginActivity.this, result, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     /**

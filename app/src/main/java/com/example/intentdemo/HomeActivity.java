@@ -1,10 +1,9 @@
 package com.example.intentdemo;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.intentdemo.databinding.ActivityHomeBinding;
 
@@ -17,8 +16,10 @@ public class HomeActivity extends AppCompatActivity {
     private String user;
     private String pwd;
     private String isAdmin;
-    private static String METHOD_1 = "普通";
-    private static String METHOD_2 = "封装";
+    private static final String METHOD_1 = "普通";
+    private static final String METHOD_2 = "封装";
+    private static final String METHOD_3 = "返回值";
+    public static final String EXIT_CODE_HOME = "exit_code_home";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,9 @@ public class HomeActivity extends AppCompatActivity {
             user = "账号：" + u.getUser();
             pwd = "密码：" + u.getPwd();
             isAdmin = "是否为管理员：" + u.getIsAdmin();
+        } else if (METHOD_3.equals(method)) {
+            intent.putExtra(EXIT_CODE_HOME, "您已退出账号");
+            setResult(RESULT_OK, intent);
         }
         //将数据渲染到界面上
         mBinding.userText.setText(user);
